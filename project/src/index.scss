@@ -1,3 +1,38 @@
 * {
   box-sizing: border-box;
 }
+.flight-img {
+  width: 50px;
+  height: 25px;
+}
+.body {
+  background: #e7efec;
+  min-height: 100%;
+  color: #2f2f2f;
+}
+.title {
+  text-align: center;
+}
+.form {
+  display: flex;
+  justify-content: center;
+}
+.tabs-container {
+  display: flex;
+  justify-content: center;
+}
+
+.flight-list_item-box {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  display: flex;
+  justify-content: center;
+  &-item {
+    color: #007bff;
+    text-decoration: none;
+    margin: 20px;
+  }
+}
