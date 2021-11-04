@@ -1,40 +1,29 @@
 import moment from 'moment';
 
-const baseUrl = 'https://api.iev.aero/api/flights/03-11-2021'; // после флайтс сегодняшняя дата в формате 10-02-2020
-const logoUrl = 'https://api.iev.aero/';
+const baseUrl = 'https://api.iev.aero/api/flights';
 
-export const fetchDeparturesList = () =>
-  fetch(baseUrl)
-    .then(responce => {
-      if (responce.ok) {
-        return responce.json();
-      }
-    })
-    .then(data => {
-      const flightsList = data.body.departure.filter(
-        el =>
-          moment(new Date(el.timeDepExpectCalc)).format('MMM DD YYYY') ===
-          moment(new Date()).format('MMM DD YYYY'),
-      );
+export const today = moment(new Date()).format('DD-MM-YYYY');
 
-      console.log('departures', flightsList);
-      return flightsList;
-    });
+export const fetchAirportData = () =>
+  fetch(`${baseUrl}/${today}`).then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+  });
 
-export const fetchArrivalsList = () => {
-  fetch(baseUrl)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-    })
-    .then(data => {
-      const flightsList = data.body.arrival.filter(
-        el =>
-          moment(new Date(el.timeLandCalc)).format('MMM DD YYYY') ===
-          moment(new Date()).format('MMM DD YYYY'),
-      );
-      console.log('arrivals', flightsList);
-      return flightsList;
-    });
+export const checkStatus = (status, time) => {
+  if (status === 'FR') return 'В польоті';
+  if (status === 'ON') return 'Вчасно';
+  if (status === 'LN') return `Прибув ${moment(new Date(time)).format('H:mm')}`;
+  if (status === 'CK') return 'Реєстрація';
+  if (status === 'CC') return 'Реєстрація закінчена';
+  if (status === 'BD') return 'Посадка';
+  if (status === 'GC') return 'Посадка закінчена';
+  if (status === 'DP' && !time) {
+    return 'Вилетів';
+  } else {
+    return `Вилетів о ${moment(new Date(time)).format('H:mm')}`;
+  }
 };
+
+export const timeFormatter = time => moment(new Date(time)).format('H:mm');

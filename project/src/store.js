@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import flightsListReducer from './flightsList/flightsList.reducer';
 
 const reducer = combineReducers({
-  flightsList: flightsListReducer,
+  airportData: flightsListReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

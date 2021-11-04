@@ -1,60 +1,42 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { checkStatus, timeFormatter } from '../flightsGateway';
+import { flightsListSelector } from '../flightsList.selectors';
 
-const Arrivals = () => (
-  <div className="tabs-container">
-    <table className="flights">
-      <thead className="flights-nav">
-        <tr>
-          <th className="flights-nav_item">Термінал</th>
-          <th className="flights-nav_item">Розклад</th>
-          <th className="flights-nav_item">Напрямок</th>
-          <th className="flights-nav_item">Статус</th>
-          <th className="flights-nav_item">Авіакомпанія</th>
-          <th className="flights-nav_item">Рейс</th>
-        </tr>
-      </thead>
-      <tbody className="flight-list">
+const Arrivals = ({ searchDataArrival, flightsList }) => {
+  const flights = searchDataArrival.length === 0 ? flightsList : searchDataArrival;
+
+  return flights.map(el => {
+    const { term, timeToStand, timeLandFact, status } = el;
+    const city = el['airportFromID.city'];
+    const airlineCompany = el.airline.en.name;
+    const flightNum = el.codeShareData[0].codeShare;
+    const logo = el.codeShareData[0].airline.en.logoSmallName;
+
+    return (
+      <tbody key={flightNum} className="flight-list">
         <tr>
           <td className="flight-list_item">
-            <span>A</span>
+            <span>{term}</span>
           </td>
-          <td className="flight-list_item">3:40</td>
-          <td className="flight-list_item">Хургада</td>
-          <td className="flight-list_item">Вилетів о 3:49</td>
+          <td className="flight-list_item">{timeFormatter(timeToStand)}</td>
+          <td className="flight-list_item">{city}</td>
+          <td className="flight-list_item">{checkStatus(status, timeLandFact)}</td>
           <td className="flight-list_item">
             <div className="flight-list_item-box">
-              <img
-                src="https://api.iev.aero/media/airline/files/604bbdf45b1ad855035563.png"
-                alt="Bees Airline"
-                className="flight-img"
-              />
-              <span>Bees Airline</span>
+              <img src={logo} alt={airlineCompany} className="flight-img" />
+              <span>{airlineCompany}</span>
             </div>
           </td>
-          <td className="flight-list_item">7B2101</td>
-        </tr>
-        <tr>
-          <td className="flight-list_item">
-            <span>A</span>
-          </td>
-          <td className="flight-list_item">4:20</td>
-          <td className="flight-list_item">Шарм-Ель-Шейх</td>
-          <td className="flight-list_item">Вилетів о 4:17</td>
-          <td className="flight-list_item">
-            <div className="flight-list_item-box">
-              <img
-                src="https://api.iev.aero/media/airline/files/604bbdf45b1ad855035563.png"
-                alt="Bees Airline"
-                className="flight-img"
-              />
-              <span>Bees Airline</span>
-            </div>
-          </td>
-          <td className="flight-list_item">7B2011</td>
+          <td className="flight-list_item">{flightNum}</td>
         </tr>
       </tbody>
-    </table>
-  </div>
-);
+    );
+  });
+};
 
-export default Arrivals;
+const mapState = state => ({
+  flightsList: flightsListSelector(state),
+});
+
+export default connect(mapState)(Arrivals);
