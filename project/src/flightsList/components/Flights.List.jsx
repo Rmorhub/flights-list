@@ -4,39 +4,23 @@ import { connect } from 'react-redux';
 
 import Departures from './Departures';
 import Arrivals from './Arrivals';
+import SearchForm from './SearchForm';
 
-import { fetchAirportData, departuresFilter, arrivalsFilter } from '../flightsGateway';
 import * as flightsActions from '../flightsList.actions';
 import { flightsListSelector } from '../flightsList.selectors';
 
-const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList, flightsList }) => {
-  const [formData, setFormData] = useState();
-
+const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
   const [searchDataDeparture, setSearchDataDeparture] = useState(null);
   const [searchDataArrival, setSearchDataArrival] = useState(null);
-
-  const hanndleChange = event => {
-    setFormData(event.target.value.toLowerCase());
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log(flightsList);
-
-    fetchAirportData().then(data => {
-      setSearchDataDeparture(departuresFilter(data, formData));
-      setSearchDataArrival(arrivalsFilter(data, formData));
-    });
-  };
 
   return (
     <BrowserRouter>
       <main className="main">
         <h2 className="title">ПОШУК РЕЙСУ</h2>
-        <form action="" className="form" onSubmit={handleSubmit}>
-          <input type="text" placeholder="Номер рейсу або місто" onChange={hanndleChange} />
-          <button type="submit">Знайти</button>
-        </form>
+        <SearchForm
+          setSearchDataDeparture={setSearchDataDeparture}
+          setSearchDataArrival={setSearchDataArrival}
+        />
         <div className="nav-link">
           <Link to="/departures" className="nav-link-item" onClick={getDeparturesFlightsList}>
             Виліт

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-const SearchForm = () => {
-  const [formData, setFormData] = useState();
+import { fetchAirportData, departuresFilter, arrivalsFilter } from '../flightsGateway';
 
-  const [searchDataDeparture, setSearchDataDeparture] = useState(null);
-  const [searchDataArrival, setSearchDataArrival] = useState(null);
+const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
+  const [formData, setFormData] = useState();
 
   const hanndleChange = event => {
     setFormData(event.target.value.toLowerCase());
@@ -12,7 +11,6 @@ const SearchForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(flightsList);
 
     fetchAirportData().then(data => {
       setSearchDataDeparture(departuresFilter(data, formData));
