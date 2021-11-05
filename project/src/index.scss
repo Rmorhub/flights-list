@@ -5,13 +5,13 @@
   width: 50px;
   height: 25px;
 }
-.body {
-  background: #e7efec;
+body {
+  background-color: #e7efec;
   min-height: 100%;
-  color: #2f2f2f;
 }
 .title {
   text-align: center;
+  font-size: 2rem;
 }
 .form {
   display: flex;

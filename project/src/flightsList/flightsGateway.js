@@ -27,3 +27,25 @@ export const checkStatus = (status, time) => {
 };
 
 export const timeFormatter = time => moment(new Date(time)).format('H:mm');
+
+export const departuresFilter = (data, formData) =>
+  data.body.departure.filter(el => {
+    const elData = moment(new Date(el.actual)).format('DD-MM-YYYY');
+    const currentCity = el['airportToID.city'].toLowerCase();
+    const flightNum = el.codeShareData[0].codeShare.toLowerCase();
+    return (
+      (flightNum.includes(formData) && elData === today) ||
+      (currentCity.includes(formData) && elData === today)
+    );
+  });
+
+export const arrivalsFilter = (data, formData) =>
+  data.body.arrival.filter(el => {
+    const elData = moment(new Date(el.actual)).format('DD-MM-YYYY');
+    const currentCity = el['airportFromID.city'].toLowerCase();
+    const flightNum = el.codeShareData[0].codeShare.toLowerCase();
+    return (
+      (flightNum.includes(formData) && elData === today) ||
+      (currentCity.includes(formData) && elData === today)
+    );
+  });
