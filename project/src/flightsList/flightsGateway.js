@@ -11,23 +11,6 @@ export const fetchAirportData = () =>
     }
   });
 
-export const checkStatus = (status, time) => {
-  if (status === 'FR') return 'В польоті';
-  if (status === 'ON') return 'Вчасно';
-  if (status === 'LN') return `Прибув ${moment(new Date(time)).format('H:mm')}`;
-  if (status === 'CK') return 'Реєстрація';
-  if (status === 'CC') return 'Реєстрація закінчена';
-  if (status === 'BD') return 'Посадка';
-  if (status === 'GC') return 'Посадка закінчена';
-  if (status === 'DP' && !time) {
-    return 'Вилетів';
-  } else {
-    return `Вилетів о ${moment(new Date(time)).format('H:mm')}`;
-  }
-};
-
-export const timeFormatter = time => moment(new Date(time)).format('H:mm');
-
 export const departuresFilter = (data, formData) =>
   data.body.departure.filter(el => {
     const elData = moment(new Date(el.actual)).format('DD-MM-YYYY');
@@ -49,3 +32,20 @@ export const arrivalsFilter = (data, formData) =>
       (currentCity.includes(formData) && elData === today)
     );
   });
+
+export const checkStatus = (status, time) => {
+  if (status === 'FR') return 'В польоті';
+  if (status === 'ON') return 'Вчасно';
+  if (status === 'LN') return `Прибув ${moment(new Date(time)).format('H:mm')}`;
+  if (status === 'CK') return 'Реєстрація';
+  if (status === 'CC') return 'Реєстрація закінчена';
+  if (status === 'BD') return 'Посадка';
+  if (status === 'GC') return 'Посадка закінчена';
+  if (status === 'DP' && !time) {
+    return 'Вилетів';
+  } else {
+    return `Вилетів о ${moment(new Date(time)).format('H:mm')}`;
+  }
+};
+
+export const timeFormatter = time => moment(new Date(time)).format('H:mm');

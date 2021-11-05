@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { checkStatus, timeFormatter } from '../flightsGateway';
 
-import { flightsListSelector } from '../flightsList.selectors';
 import NotFound from './NotFound';
 
-const Departures = ({ searchDataDeparture, flightsList }) => {
+import { checkStatus, timeFormatter } from '../flightsGateway';
+import * as flightsActions from '../flightsList.actions';
+import { flightsListSelector } from '../flightsList.selectors';
+
+const Departures = ({ searchDataDeparture, flightsList, getDeparturesFlightsList }) => {
   const flights = searchDataDeparture ?? flightsList;
+  console.log('render');
+
+  // useEffect(() => {
+  //   getDeparturesFlightsList();
+  //   console.log('updated');
+  // }, []);
 
   return (
     <table className="flights">
@@ -59,4 +67,8 @@ const mapState = state => ({
   flightsList: flightsListSelector(state),
 });
 
-export default connect(mapState)(Departures);
+const mapDispatch = {
+  getDeparturesFlightsList: flightsActions.getDeparturesFlightsList,
+};
+
+export default connect(mapState, mapDispatch)(Departures);

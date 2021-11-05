@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { fetchAirportData, departuresFilter, arrivalsFilter } from '../flightsGateway';
+import { flightsListSelector } from '../flightsList.selectors';
 
-const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
-  const [formData, setFormData] = useState();
+const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival, flightsList }) => {
+  const [formData, setFormData] = useState('');
 
   const hanndleChange = event => {
     setFormData(event.target.value.toLowerCase());
@@ -17,6 +19,7 @@ const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
       setSearchDataArrival(arrivalsFilter(data, formData));
     });
   };
+
   return (
     <form action="" className="form" onSubmit={handleSubmit}>
       <input type="text" placeholder="Номер рейсу або місто" onChange={hanndleChange} />
@@ -25,4 +28,8 @@ const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
   );
 };
 
-export default SearchForm;
+const mapState = state => ({
+  flightsList: flightsListSelector(state),
+});
+
+export default connect(mapState)(SearchForm);
