@@ -49,3 +49,6 @@ export const checkStatus = (status, time) => {
 };
 
 export const timeFormatter = time => moment(new Date(time)).format('H:mm');
+
+
+export const pathName = window.location.pathname;

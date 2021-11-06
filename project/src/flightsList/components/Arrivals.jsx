@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import NotFound from './NotFound';
@@ -7,14 +7,8 @@ import { checkStatus, timeFormatter } from '../flightsGateway';
 import * as flightsActions from '../flightsList.actions';
 import { flightsListSelector } from '../flightsList.selectors';
 
-const Arrivals = ({ searchDataArrival, flightsList, getArrivalsFlightsList }) => {
+const Arrivals = ({ searchDataArrival, flightsList }) => {
   const flights = searchDataArrival ?? flightsList;
-  console.log('render');
-
-  // useEffect(() => {
-  //   getArrivalsFlightsList();
-  //   console.log('updated');
-  // }, []);
 
   return (
     <table className="flights">
