@@ -31,7 +31,7 @@ const Arrivals = ({ searchDataArrival, flightsList }) => {
           const logo = el.codeShareData[0].airline.en.logoSmallName;
 
           return (
-            <tbody key={flightNum} className="flight-list">
+            <tbody key={el.ID} className="flight-list">
               <tr>
                 <td className="flight-list_item">
                   <span>{term}</span>

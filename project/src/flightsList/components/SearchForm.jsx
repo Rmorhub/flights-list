@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { fetchAirportData, departuresFilter, arrivalsFilter, pathName } from '../flightsGateway';
+import { fetchAirportData, departuresFilter, arrivalsFilter } from '../flightsGateway';
 
 const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
   const history = useHistory();
@@ -22,6 +22,7 @@ const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
+    const pathName = window.location.pathname;
 
     const defaultLink = pathName !== '/' ? pathName : '/departures';
     const link = formData ? `${defaultLink}?search=${formData}` : pathName;

@@ -8,7 +8,7 @@ import SearchForm from './SearchForm';
 
 import * as flightsActions from '../flightsList.actions';
 import { flightsListSelector } from '../flightsList.selectors';
-import { fetchAirportData, departuresFilter, arrivalsFilter, pathName } from '../flightsGateway';
+import { fetchAirportData, departuresFilter, arrivalsFilter } from '../flightsGateway';
 
 const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
   const [searchDataDeparture, setSearchDataDeparture] = useState(null);
@@ -18,6 +18,8 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
   const search = params.get('search');
 
   useEffect(() => {
+    const pathName = window.location.pathname;
+
     if (pathName === '/departures') {
       getDeparturesFlightsList();
     }

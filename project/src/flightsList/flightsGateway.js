@@ -13,7 +13,7 @@ export const fetchAirportData = () =>
 
 export const departuresFilter = (data, formData) =>
   data.body.departure.filter(el => {
-    const elData = moment(new Date(el.actual)).format('DD-MM-YYYY');
+    const elData = moment(new Date(el.timeDepShedule)).format('DD-MM-YYYY');
     const currentCity = el['airportToID.city'].toLowerCase();
     const flightNum = el.codeShareData[0].codeShare.toLowerCase();
     return (
@@ -24,7 +24,7 @@ export const departuresFilter = (data, formData) =>
 
 export const arrivalsFilter = (data, formData) =>
   data.body.arrival.filter(el => {
-    const elData = moment(new Date(el.actual)).format('DD-MM-YYYY');
+    const elData = moment(new Date(el.timeToStand)).format('DD-MM-YYYY');
     const currentCity = el['airportFromID.city'].toLowerCase();
     const flightNum = el.codeShareData[0].codeShare.toLowerCase();
     return (
@@ -49,6 +49,3 @@ export const checkStatus = (status, time) => {
 };
 
 export const timeFormatter = time => moment(new Date(time)).format('H:mm');
-
-
-export const pathName = window.location.pathname;

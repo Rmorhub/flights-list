@@ -30,7 +30,7 @@ export const getDeparturesFlightsList = () => {
       .fetchAirportData()
       .then(data =>
         data.body.departure.filter(
-          el => moment(new Date(el.timeDepExpectCalc)).format('DD-MM-YYYY') === flightGateway.today,
+          el => moment(new Date(el.timeDepShedule)).format('DD-MM-YYYY') === flightGateway.today,
         ),
       )
       .then(flightsListData => {
@@ -46,7 +46,7 @@ export const getArrivalsFlightsList = () => {
       .fetchAirportData()
       .then(data =>
         data.body.arrival.filter(
-          el => moment(new Date(el.timeLandCalc)).format('DD-MM-YYYY') === flightGateway.today,
+          el => moment(new Date(el.timeToStand)).format('DD-MM-YYYY') === flightGateway.today,
         ),
       )
       .then(flightsListData => {
