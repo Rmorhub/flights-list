@@ -55,26 +55,14 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
         </Link>
       </div>
       <div className="tabs-container">
-        <table className="flights">
-          <thead className="flights-nav">
-            <tr>
-              <th className="flights-nav_item">Термінал</th>
-              <th className="flights-nav_item">Розклад</th>
-              <th className="flights-nav_item">Напрямок</th>
-              <th className="flights-nav_item">Статус</th>
-              <th className="flights-nav_item">Авіакомпанія</th>
-              <th className="flights-nav_item">Рейс</th>
-            </tr>
-          </thead>
-          <Switch>
-            <Route exact path="/departures">
-              <Departures searchDataDeparture={searchDataDeparture} />
-            </Route>
-            <Route path="/arrivals">
-              <Arrivals searchDataArrival={searchDataArrival} />
-            </Route>
-          </Switch>
-        </table>
+        <Switch>
+          <Route exact path="/departures">
+            <Departures searchDataDeparture={searchDataDeparture} />
+          </Route>
+          <Route path="/arrivals">
+            <Arrivals searchDataArrival={searchDataArrival} />
+          </Route>
+        </Switch>
       </div>
     </main>
   );
