@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import NotFound from './NotFound';
 
 import { checkStatus, timeFormatter } from '../flightsGateway';
-import * as flightsActions from '../flightsList.actions';
 import { flightsListSelector } from '../flightsList.selectors';
 
 const Departures = ({ searchDataDeparture, flightsList }) => {
@@ -29,8 +28,6 @@ const Departures = ({ searchDataDeparture, flightsList }) => {
           const airlineCompany = el.airline.en.name;
           const flightNum = el.codeShareData[0].codeShare;
           const logo = el.codeShareData[0].airline.en.logoSmallName;
-
-          console.log(el)
 
           return (
             <tbody key={el.ID} className="flight-list">
@@ -63,8 +60,4 @@ const mapState = state => ({
   flightsList: flightsListSelector(state),
 });
 
-const mapDispatch = {
-  getDeparturesFlightsList: flightsActions.getDeparturesFlightsList,
-};
-
-export default connect(mapState, mapDispatch)(Departures);
+export default connect(mapState)(Departures);

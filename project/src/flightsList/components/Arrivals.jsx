@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import NotFound from './NotFound';
 
 import { checkStatus, timeFormatter } from '../flightsGateway';
-import * as flightsActions from '../flightsList.actions';
 import { flightsListSelector } from '../flightsList.selectors';
 
 const Arrivals = ({ searchDataArrival, flightsList }) => {
@@ -61,8 +60,4 @@ const mapState = state => ({
   flightsList: flightsListSelector(state),
 });
 
-const mapDispatch = {
-  getArrivalsFlightsList: flightsActions.getArrivalsFlightsList,
-};
-
-export default connect(mapState, mapDispatch)(Arrivals);
+export default connect(mapState)(Arrivals);
