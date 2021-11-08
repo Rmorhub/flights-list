@@ -6,6 +6,8 @@ import NotFound from '../NotFound/NotFound';
 import { checkStatus, timeFormatter } from '../../flightsGateway';
 import { flightsListSelector } from '../../flightsList.selectors';
 
+import './departures.scss';
+
 const Departures = ({ searchDataDeparture, flightsList }) => {
   const flights = searchDataDeparture ?? flightsList;
   const notFound = searchDataDeparture !== null ? <NotFound /> : null;
@@ -18,15 +20,15 @@ const Departures = ({ searchDataDeparture, flightsList }) => {
   }
 
   return (
-    <table className="flights">
-      <thead className="flights-nav">
+    <table className="flight">
+      <thead className="flight-nav">
         <tr>
-          <th className="flights-nav_item">Термінал</th>
-          <th className="flights-nav_item">Розклад</th>
-          <th className="flights-nav_item">Напрямок</th>
-          <th className="flights-nav_item">Статус</th>
-          <th className="flights-nav_item">Авіакомпанія</th>
-          <th className="flights-nav_item">Рейс</th>
+          <th className="flight-nav_item__term">Термінал</th>
+          <th className="flight-nav_item">Розклад</th>
+          <th className="flight-nav_item">Напрямок</th>
+          <th className="flight-nav_item">Статус</th>
+          <th className="flight-nav_item">Авіакомпанія</th>
+          <th className="flight-nav_item">Рейс</th>
         </tr>
       </thead>
       {flights.length
@@ -40,16 +42,16 @@ const Departures = ({ searchDataDeparture, flightsList }) => {
             return (
               <tbody key={el.ID} className="flight-list">
                 <tr>
-                  <td className="flight-list_item">
-                    <span>{term}</span>
+                  <td className="flight-list_item__term">
+                    <span className="flight-list_item__term-skin">{term}</span>
                   </td>
                   <td className="flight-list_item">{timeFormatter(timeDepShedule)}</td>
                   <td className="flight-list_item">{city}</td>
                   <td className="flight-list_item">{checkStatus(status, timeTakeofFact)}</td>
                   <td className="flight-list_item">
-                    <div className="flight-list_item-box">
-                      <img src={logo} alt={airlineCompany} className="flight-img" />
-                      <span>{airlineCompany}</span>
+                    <div className="flight-list_item__box">
+                      <img src={logo} alt={airlineCompany} className="flight-list_item__logo" />
+                      <span className="flight-list_item__company">{airlineCompany}</span>
                     </div>
                   </td>
                   <td className="flight-list_item">{flightNum}</td>

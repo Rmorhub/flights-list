@@ -2,8 +2,65 @@
   display: flex;
 
   &-container {
-    margin: 0 auto;
     width: 1140px;
+    margin: 0 auto;
+  }
+
+  &-nav {
+    display: flex;
+    padding-top: 20px;
+    :hover {
+      opacity: 0.7;
+    }
+
+    &_departures {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 580px;
+      background: #1eb7ee;
+      padding-right: 100px;
+      height: 50px;
+      border-radius: 80px 0 0 0;
+      color: #fff;
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    &_arrivals {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 580px;
+      background: #fff;
+      text-align: left;
+      padding-left: 100px;
+      height: 50px;
+      border-radius: 0 80px 0 0;
+      color: #1eb7ee;
+      font-size: 20px;
+      text-decoration: none;
+    }
+  }
+
+  &_tabs-container {
+    width: 1140px;
+    display: flex;
+    justify-content: center;
   }
 }
 
+.fa-plane {
+  margin: auto;
+
+  &-departure {
+    color: #fff;
+    padding-right: 10px;
+    pointer-events: none;
+  }
+  &-arrival {
+    color: #1eb7ee;
+    padding-right: 10px;
+    pointer-events: none;
+  }
+}

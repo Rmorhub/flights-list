@@ -6,28 +6,3 @@
 body {
   background-color: #e7efec;
 }
-
-.tabs-container {
-  display: flex;
-  justify-content: center;
-}
-
-.flight-list_item-box {
-  display: flex;
-  align-items: center;
-}
-
-.nav-link {
-  display: flex;
-  justify-content: center;
-  &-item {
-    color: #007bff;
-    text-decoration: none;
-    margin: 20px;
-  }
-}
-
-.flight-img {
-  width: 50px;
-  height: 25px;
-}

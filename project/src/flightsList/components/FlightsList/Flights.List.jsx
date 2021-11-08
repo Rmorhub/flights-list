@@ -47,15 +47,22 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
           setSearchDataDeparture={setSearchDataDeparture}
           setSearchDataArrival={setSearchDataArrival}
         />
-        <div className="nav-link">
-          <Link to={departureLink} className="nav-link-item" onClick={getDeparturesFlightsList}>
+        <div className="main-nav">
+          <Link
+            to={departureLink}
+            className="main-nav_departures"
+            onClick={getDeparturesFlightsList}
+          >
+            <i className="fas fa-plane-departure" />
             Виліт
           </Link>
-          <Link to={arrivalLink} className="nav-link-item" onClick={getArrivalsFlightsList}>
+
+          <Link to={arrivalLink} className="main-nav_arrivals" onClick={getArrivalsFlightsList}>
+            <i className="fas fa-plane-arrival" />
             Приліт
           </Link>
         </div>
-        <div className="tabs-container">
+        <div className="main_tabs-container">
           <Switch>
             <Route exact path="/departures">
               <Departures searchDataDeparture={searchDataDeparture} />

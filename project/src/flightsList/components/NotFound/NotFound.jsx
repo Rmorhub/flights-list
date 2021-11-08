@@ -1,10 +1,12 @@
 import React from 'react';
 
+import './notFound.scss';
+
 const NotFound = () => (
   <tbody className="flight-list">
     <tr>
       <td className="flight-list_not-found">
-        <span>Flights not found</span>
+        <span>Немає рейсів</span>
       </td>
     </tr>
   </tbody>

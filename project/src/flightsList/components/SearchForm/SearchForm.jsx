@@ -38,20 +38,20 @@ const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
   };
 
   return (
-    <div className="form">
-      <div className="form-container">
-        <h2 className="form-title">ПОШУК РЕЙСУ</h2>
-        <form className="form-application" onSubmit={handleSubmit}>
+    <div className="main_search">
+      <div className="main_search-container">
+        <h2 className="main_search-title">ПОШУК РЕЙСУ</h2>
+        <form className="main_search-application" onSubmit={handleSubmit}>
           <i className="fas fa-search" />
           <input
             type="text"
             placeholder="Номер рейсу або місто"
-            className="form_search-input"
+            className="main_search-input"
             value={inputText}
             onChange={hanndleChange}
           />
 
-          <button className="form_search-btn" type="submit">
+          <button className="main_search-btn" type="submit">
             Знайти
           </button>
         </form>
