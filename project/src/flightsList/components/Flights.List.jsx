@@ -7,7 +7,6 @@ import Arrivals from './Arrivals';
 import SearchForm from './SearchForm';
 
 import * as flightsActions from '../flightsList.actions';
-import { flightsListSelector } from '../flightsList.selectors';
 import { fetchAirportData, departuresFilter, arrivalsFilter } from '../flightsGateway';
 
 const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
@@ -15,7 +14,7 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
   const [searchDataArrival, setSearchDataArrival] = useState(null);
 
   const params = new URLSearchParams(window.location.search);
-  const search = params.get('search');
+  const searchText = params.get('search');
 
   useEffect(() => {
     const pathName = window.location.pathname;
@@ -28,16 +27,16 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
       getArrivalsFlightsList();
     }
 
-    if (search) {
+    if (searchText) {
       fetchAirportData().then(data => {
-        setSearchDataDeparture(departuresFilter(data, search));
-        setSearchDataArrival(arrivalsFilter(data, search));
+        setSearchDataDeparture(departuresFilter(data, searchText));
+        setSearchDataArrival(arrivalsFilter(data, searchText));
       });
     }
   }, []);
 
-  const departureLink = !search ? 'departures' : `departures?search=${search}`;
-  const arrivalLink = !search ? 'arrivals' : `arrivals?search=${search}`;
+  const departureLink = !searchText ? 'departures' : `departures?search=${searchText}`;
+  const arrivalLink = !searchText ? 'arrivals' : `arrivals?search=${searchText}`;
 
   return (
     <main className="main">
@@ -68,13 +67,9 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
   );
 };
 
-const mapState = state => ({
-  flightsList: flightsListSelector(state),
-});
-
 const mapDispatch = {
   getDeparturesFlightsList: flightsActions.getDeparturesFlightsList,
   getArrivalsFlightsList: flightsActions.getArrivalsFlightsList,
 };
 
-export default connect(mapState, mapDispatch)(FlightsList);
+export default connect(null, mapDispatch)(FlightsList);

@@ -5,18 +5,18 @@ import { fetchAirportData, departuresFilter, arrivalsFilter } from '../flightsGa
 
 const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
   const history = useHistory();
-  const [formData, setFormData] = useState('');
+  const [inputText, setInputText] = useState('');
 
   const hanndleChange = event => {
-    setFormData(event.target.value.toLowerCase());
+    setInputText(event.target.value.toLowerCase());
   };
 
   const params = new URLSearchParams(window.location.search);
-  const search = params.get('search');
+  const searchText = params.get('search');
 
   useEffect(() => {
-    if (search) {
-      setFormData(search);
+    if (searchText) {
+      setInputText(searchText);
     }
   }, []);
 
@@ -25,11 +25,11 @@ const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
     const pathName = window.location.pathname;
 
     const defaultLink = pathName !== '/' ? pathName : '/departures';
-    const link = formData ? `${defaultLink}?search=${formData}` : pathName;
+    const link = inputText ? `${defaultLink}?search=${inputText}` : pathName;
 
     fetchAirportData().then(data => {
-      setSearchDataDeparture(departuresFilter(data, formData));
-      setSearchDataArrival(arrivalsFilter(data, formData));
+      setSearchDataDeparture(departuresFilter(data, inputText));
+      setSearchDataArrival(arrivalsFilter(data, inputText));
     });
 
     history.push(link);
@@ -40,7 +40,7 @@ const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
       <input
         type="text"
         placeholder="Номер рейсу або місто"
-        value={formData}
+        value={inputText}
         onChange={hanndleChange}
       />
       <button type="submit">Знайти</button>

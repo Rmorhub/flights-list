@@ -11,9 +11,9 @@ const Arrivals = ({ searchDataArrival, flightsList }) => {
   const notFound = searchDataArrival !== null ? <NotFound /> : null;
 
   const params = new URLSearchParams(window.location.search);
-  const search = params.get('search');
+  const searchText = params.get('search');
 
-  if (search && !searchDataArrival && flightsList) {
+  if (searchText && !searchDataArrival && flightsList) {
     return null;
   }
   return (
