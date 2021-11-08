@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import NotFound from './NotFound';
@@ -9,12 +9,13 @@ import { flightsListSelector } from '../flightsList.selectors';
 const Arrivals = ({ searchDataArrival, flightsList }) => {
   const flights = searchDataArrival ?? flightsList;
   const notFound = searchDataArrival !== null ? <NotFound /> : null;
-  console.log('render')
 
-  useEffect(() => {
-    console.log('updated');
-  }, []);
+  const params = new URLSearchParams(window.location.search);
+  const search = params.get('search');
 
+  if (search && !searchDataArrival && flightsList) {
+    return null;
+  }
   return (
     <table className="flights">
       <thead className="flights-nav">

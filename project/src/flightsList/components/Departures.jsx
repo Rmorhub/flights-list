@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import NotFound from './NotFound';
@@ -9,11 +9,13 @@ import { flightsListSelector } from '../flightsList.selectors';
 const Departures = ({ searchDataDeparture, flightsList }) => {
   const flights = searchDataDeparture ?? flightsList;
   const notFound = searchDataDeparture !== null ? <NotFound /> : null;
-  console.log('render departures');
 
-  useEffect(() => {
-    console.log('updated departures');
-  }, []);
+  const params = new URLSearchParams(window.location.search);
+  const search = params.get('search');
+
+  if (search && !searchDataDeparture && flightsList) {
+    return null;
+  }
 
   return (
     <table className="flights">
