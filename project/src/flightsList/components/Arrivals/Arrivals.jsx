@@ -18,9 +18,12 @@ const Arrivals = ({ searchDataArrival, flightsList }) => {
   if (searchText && !searchDataArrival && flightsList) {
     return null;
   }
+
+  const displayTable = flights.length ? null : { display: 'none' };
+
   return (
     <table className="flight">
-      <thead className="flight-nav">
+      <thead className="flight-nav" style={displayTable}>
         <tr>
           <th className="flight-nav_item__term">Термінал</th>
           <th className="flight-nav_item">Розклад</th>

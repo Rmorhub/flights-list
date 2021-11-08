@@ -1,15 +1,19 @@
 .flight {
   border-spacing: 0;
-  padding-top: 30px;
   background-color: #fff;
   width: 1140px;
   margin-bottom: 100px;
+
   &-nav_item {
     padding: 12px;
+    padding-top: 30px;
     color: #95989a;
     font-size: 16px;
     text-align: left;
+
     &__term {
+      padding: 12px;
+      padding-top: 30px;
       color: #95989a;
       font-size: 16px;
       text-align: center;
