@@ -1,22 +1,12 @@
 * {
   box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
 }
-.flight-img {
-  width: 50px;
-  height: 25px;
-}
+
 body {
   background-color: #e7efec;
-  min-height: 100%;
 }
-.title {
-  text-align: center;
-  font-size: 2rem;
-}
-.form {
-  display: flex;
-  justify-content: center;
-}
+
 .tabs-container {
   display: flex;
   justify-content: center;
@@ -35,4 +25,9 @@ body {
     text-decoration: none;
     margin: 20px;
   }
+}
+
+.flight-img {
+  width: 50px;
+  height: 25px;
 }

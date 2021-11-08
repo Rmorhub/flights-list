@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import NotFound from './NotFound';
+import NotFound from '../NotFound/NotFound';
 
-import { checkStatus, timeFormatter } from '../flightsGateway';
-import { flightsListSelector } from '../flightsList.selectors';
+import { checkStatus, timeFormatter } from '../../flightsGateway';
+import { flightsListSelector } from '../../flightsList.selectors';
 
 const Departures = ({ searchDataDeparture, flightsList }) => {
   const flights = searchDataDeparture ?? flightsList;

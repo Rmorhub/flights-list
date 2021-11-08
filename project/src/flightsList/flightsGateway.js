@@ -17,8 +17,8 @@ export const departuresFilter = (data, formData) =>
     const currentCity = el['airportToID.city'].toLowerCase();
     const flightNum = el.codeShareData[0].codeShare.toLowerCase();
     return (
-      (flightNum.includes(formData) && elData === today) ||
-      (currentCity.includes(formData) && elData === today)
+      (flightNum.includes(formData.toLowerCase()) && elData === today) ||
+      (currentCity.includes(formData.toLowerCase()) && elData === today)
     );
   });
 
@@ -28,8 +28,8 @@ export const arrivalsFilter = (data, formData) =>
     const currentCity = el['airportFromID.city'].toLowerCase();
     const flightNum = el.codeShareData[0].codeShare.toLowerCase();
     return (
-      (flightNum.includes(formData) && elData === today) ||
-      (currentCity.includes(formData) && elData === today)
+      (flightNum.includes(formData.toLowerCase()) && elData === today) ||
+      (currentCity.includes(formData.toLowerCase()) && elData === today)
     );
   });
 
