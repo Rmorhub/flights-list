@@ -5,6 +5,7 @@ import NotFound from '../NotFound/NotFound';
 
 import { checkStatus, timeFormatter } from '../../flightsGateway';
 import { flightsListSelector } from '../../flightsList.selectors';
+import { terminalStyles } from '../../flightsStyles';
 
 import './departures.scss';
 
@@ -45,7 +46,9 @@ const Departures = ({ searchDataDeparture, flightsList }) => {
               <tbody key={el.ID} className="flight-list">
                 <tr>
                   <td className="flight-list_item__term">
-                    <span className="flight-list_item__term-skin">{term}</span>
+                    <span className="flight-list_item__term-skin" style={terminalStyles(term)}>
+                      {term}
+                    </span>
                   </td>
                   <td className="flight-list_item">{timeFormatter(timeDepShedule)}</td>
                   <td className="flight-list_item">{city}</td>

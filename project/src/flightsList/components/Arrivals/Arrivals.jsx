@@ -5,6 +5,7 @@ import NotFound from '../NotFound/NotFound';
 
 import { checkStatus, timeFormatter } from '../../flightsGateway';
 import { flightsListSelector } from '../../flightsList.selectors';
+import { terminalStyles } from '../../flightsStyles';
 
 import './arrivals.scss';
 
@@ -45,7 +46,9 @@ const Arrivals = ({ searchDataArrival, flightsList }) => {
               <tbody key={el.ID} className="flight-list">
                 <tr>
                   <td className="flight-list_item__term">
-                    <span className="flight-list_item__term-skin">{term}</span>
+                    <span className="flight-list_item__term-skin" style={terminalStyles(term)}>
+                      {term}
+                    </span>
                   </td>
                   <td className="flight-list_item">{timeFormatter(timeToStand)}</td>
                   <td className="flight-list_item">{city}</td>
