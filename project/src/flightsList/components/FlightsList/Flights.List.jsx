@@ -15,18 +15,27 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
   const [searchDataDeparture, setSearchDataDeparture] = useState(null);
   const [searchDataArrival, setSearchDataArrival] = useState(null);
 
+  const [depStatus, setDepStatus] = useState('active');
+  const [arrStatus, setArrStatus] = useState('disabled');
+
   const params = new URLSearchParams(window.location.search);
   const searchText = params.get('search');
+  const departureLink = !searchText ? 'departures' : `departures?search=${searchText}`;
+  const arrivalLink = !searchText ? 'arrivals' : `arrivals?search=${searchText}`;
 
   useEffect(() => {
     const pathName = window.location.pathname;
 
     if (pathName === '/departures') {
       getDeparturesFlightsList();
+      setDepStatus('active');
+      setArrStatus('disabled');
     }
 
     if (pathName === '/arrivals') {
       getArrivalsFlightsList();
+      setDepStatus('disabled');
+      setArrStatus('active');
     }
 
     if (searchText) {
@@ -37,8 +46,19 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
     }
   }, []);
 
-  const departureLink = !searchText ? 'departures' : `departures?search=${searchText}`;
-  const arrivalLink = !searchText ? 'arrivals' : `arrivals?search=${searchText}`;
+  const depTheme = event => {
+    if (!event.target.className.includes('active')) {
+      setArrStatus('disabled');
+      setDepStatus('active');
+    }
+  };
+
+  const arrTheme = event => {
+    if (!event.target.className.includes('active')) {
+      setArrStatus('active');
+      setDepStatus('disabled');
+    }
+  };
 
   return (
     <main className="main">
@@ -50,14 +70,19 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
         <div className="main-nav">
           <Link
             to={departureLink}
-            className="main-nav_departures"
+            className={`main-nav_departures main-nav_departures__${depStatus}`}
             onClick={getDeparturesFlightsList}
+            onClickCapture={event => depTheme(event)}
           >
             <i className="fas fa-plane-departure" />
             Виліт
           </Link>
-
-          <Link to={arrivalLink} className="main-nav_arrivals" onClick={getArrivalsFlightsList}>
+          <Link
+            to={arrivalLink}
+            className={`main-nav_arrivals main-nav_arrivals__${arrStatus}`}
+            onClick={getArrivalsFlightsList}
+            onClickCapture={event => arrTheme(event)}
+          >
             <i className="fas fa-plane-arrival" />
             Приліт
           </Link>

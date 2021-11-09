@@ -39,6 +39,7 @@ export const checkStatus = (status, time) => {
   if (status === 'LN') return `Прибув ${moment(new Date(time)).format('H:mm')}`;
   if (status === 'CK') return 'Реєстрація';
   if (status === 'CC') return 'Реєстрація закінчена';
+  if (status === 'DL') return 'Затримується';
   if (status === 'BD') return 'Посадка';
   if (status === 'GC') return 'Посадка закінчена';
   if (status === 'DP' && !time) {
@@ -49,4 +50,3 @@ export const checkStatus = (status, time) => {
 };
 
 export const timeFormatter = time => moment(new Date(time)).format('H:mm');
-

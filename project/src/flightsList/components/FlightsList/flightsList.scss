@@ -8,23 +8,28 @@
 
   &-nav {
     display: flex;
-    padding-top: 20px;
-    :hover {
-      opacity: 0.7;
-    }
+    margin-top: 20px;
+    background: #1eb7ee;
+    border-radius: 80px 80px 0 0;
 
     &_departures {
       display: flex;
       align-items: center;
       justify-content: flex-end;
       width: 580px;
-      background: #1eb7ee;
       padding-right: 100px;
       height: 50px;
-      border-radius: 80px 0 0 0;
-      color: #fff;
+      border-radius: 80px 80px 0 0;
       font-size: 20px;
       text-decoration: none;
+      &__active {
+        background: #fff;
+        color: #1eb7ee;
+      }
+      &__disabled {
+        background: #1eb7ee;
+        color: #fff;
+      }
     }
 
     &_arrivals {
@@ -32,14 +37,20 @@
       align-items: center;
       justify-content: flex-start;
       width: 580px;
-      background: #fff;
       text-align: left;
       padding-left: 100px;
       height: 50px;
-      border-radius: 0 80px 0 0;
-      color: #1eb7ee;
+      border-radius: 80px 80px 0 0;
       font-size: 20px;
       text-decoration: none;
+      &__active {
+        background: #fff;
+        color: #1eb7ee;
+      }
+      &__disabled {
+        background: #1eb7ee;
+        color: #fff;
+      }
     }
   }
 
@@ -54,12 +65,10 @@
   margin: auto;
 
   &-departure {
-    color: #fff;
     padding-right: 10px;
     pointer-events: none;
   }
   &-arrival {
-    color: #1eb7ee;
     padding-right: 10px;
     pointer-events: none;
   }
