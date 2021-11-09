@@ -4,8 +4,6 @@
 
 ## [Git Hub Page](https://github.com/Rmorhub)
 
-### [AirportBoard-github-page](https://github.com/Rmorhub/flights-list)
-
 ## Project commands:
 
 - [npm start] "Starting project"
