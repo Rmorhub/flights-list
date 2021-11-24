@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Link, Switch, useLocation, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import SearchForm from '../SearchForm/SearchForm';
@@ -89,10 +89,10 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
         </div>
         <div className="main_tabs-container">
           <Switch>
-            <Route exact path="/departures">
+            <Route exact path="/:direction">
               <Flights searchData={searchDataDeparture} />
             </Route>
-            <Route path="/arrivals">
+            <Route path="/:direction">
               <Flights searchData={searchDataArrival} />
             </Route>
           </Switch>
