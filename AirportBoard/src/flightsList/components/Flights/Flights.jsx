@@ -7,16 +7,20 @@ import { checkStatus, timeFormatter } from '../../flightsGateway';
 import { flightsListSelector } from '../../flightsList.selectors';
 import { terminalStyles } from '../../flightsStyles';
 
-import './arrivals.scss';
+import './flights.scss';
 
-const Arrivals = ({ searchDataArrival, flightsList }) => {
-  const flights = searchDataArrival ?? flightsList;
-  const notFound = searchDataArrival !== null ? <NotFound /> : null;
+const Flights = ({ searchData, flightsList }) => {
+  const flights = searchData ?? flightsList;
+  const notFound = searchData !== null ? <NotFound /> : null;
 
   const params = new URLSearchParams(window.location.search);
   const searchText = params.get('search');
 
-  if (searchText && !searchDataArrival && flightsList) {
+  const flightDirection = window.location.pathname.includes('/departure')
+    ? 'Напрямок'
+    : 'Прилітає з';
+
+  if (searchText && !searchData && flightsList) {
     return null;
   }
 
@@ -28,7 +32,7 @@ const Arrivals = ({ searchDataArrival, flightsList }) => {
         <tr>
           <th className="flight-nav_item__term">Термінал</th>
           <th className="flight-nav_item">Розклад</th>
-          <th className="flight-nav_item">Прилітає з</th>
+          <th className="flight-nav_item">{flightDirection}</th>
           <th className="flight-nav_item">Статус</th>
           <th className="flight-nav_item">Авіакомпанія</th>
           <th className="flight-nav_item">Рейс</th>
@@ -36,11 +40,13 @@ const Arrivals = ({ searchDataArrival, flightsList }) => {
       </thead>
       {flights.length
         ? flights.map(el => {
-            const { term, timeToStand, timeLandFact, status } = el;
-            const city = el['airportFromID.city'];
+            const { term, timeDepShedule, timeTakeofFact, status, timeToStand, timeLandFact } = el;
+            const cityDep = el['airportToID.city'];
+            const cityArr = el['airportFromID.city'];
             const airlineCompany = el.airline.ua.name;
             const flightNum = el.codeShareData[0].codeShare;
             const logo = el.codeShareData[0].airline.en.logoSmallName;
+            const timeLandOrDep = cityDep ? timeTakeofFact : timeLandFact;
 
             return (
               <tbody key={el.ID} className="flight-list">
@@ -50,9 +56,11 @@ const Arrivals = ({ searchDataArrival, flightsList }) => {
                       {term}
                     </span>
                   </td>
-                  <td className="flight-list_item">{timeFormatter(timeToStand)}</td>
-                  <td className="flight-list_item">{city}</td>
-                  <td className="flight-list_item">{checkStatus(status, timeLandFact)}</td>
+                  <td className="flight-list_item">
+                    {timeFormatter(timeDepShedule || timeToStand)}
+                  </td>
+                  <td className="flight-list_item">{cityDep || cityArr}</td>
+                  <td className="flight-list_item">{checkStatus(status, timeLandOrDep)}</td>
                   <td className="flight-list_item">
                     <div className="flight-list_item__box">
                       <img src={logo} alt={airlineCompany} className="flight-list_item__logo" />
@@ -73,4 +81,4 @@ const mapState = state => ({
   flightsList: flightsListSelector(state),
 });
 
-export default connect(mapState)(Arrivals);
+export default connect(mapState)(Flights);
