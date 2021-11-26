@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { btnActivities } from './flightsStyles';
 
 const baseUrl = 'https://api.iev.aero/api/flights';
 
@@ -9,28 +10,6 @@ export const fetchAirportData = () =>
     if (response.ok) {
       return response.json();
     }
-  });
-
-export const departuresFilter = (data, formData) =>
-  data.body.departure.filter(el => {
-    const elData = moment(new Date(el.timeDepShedule)).format('DD-MM-YYYY');
-    const currentCity = el['airportToID.city'].toLowerCase();
-    const flightNum = el.codeShareData[0].codeShare.toLowerCase();
-    return (
-      (flightNum.includes(formData.toLowerCase()) && elData === today) ||
-      (currentCity.includes(formData.toLowerCase()) && elData === today)
-    );
-  });
-
-export const arrivalsFilter = (data, formData) =>
-  data.body.arrival.filter(el => {
-    const elData = moment(new Date(el.timeToStand)).format('DD-MM-YYYY');
-    const currentCity = el['airportFromID.city'].toLowerCase();
-    const flightNum = el.codeShareData[0].codeShare.toLowerCase();
-    return (
-      (flightNum.includes(formData.toLowerCase()) && elData === today) ||
-      (currentCity.includes(formData.toLowerCase()) && elData === today)
-    );
   });
 
 export const checkStatus = (status, time) => {
@@ -50,3 +29,36 @@ export const checkStatus = (status, time) => {
 };
 
 export const timeFormatter = time => moment(new Date(time)).format('H:mm');
+
+export const showFlights = (pathname, searchText, input, searchList, setStatus) => {
+  if (pathname === '/arrivals' && searchText) {
+    searchList(pathname, searchText);
+    setStatus(btnActivities.arrAct);
+  }
+  if (pathname === '/arrivals' && !searchText) {
+    searchList(pathname, input);
+    setStatus(btnActivities.arrAct);
+  }
+
+  if (pathname === '/departures' && searchText) {
+    searchList(pathname, searchText);
+    setStatus(btnActivities.depAct);
+  }
+  if (pathname === '/departures' && !searchText) {
+    searchList(pathname, input);
+    setStatus(btnActivities.depAct);
+  }
+};
+
+export const onLoad = (path, searchText, toggleFlights, searchList, setStatus) => {
+  if (path === '/departures' && !searchText) toggleFlights();
+  if (path === '/arrivals' && !searchText) toggleFlights();
+  if (path === '/departures' && searchText) {
+    searchList(path, searchText);
+    setStatus(btnActivities.depAct);
+  }
+  if (path === '/arrivals' && searchText) {
+    searchList(path, searchText);
+    setStatus(btnActivities.arrAct);
+  }
+};

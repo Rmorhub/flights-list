@@ -5,3 +5,8 @@ export const terminalStyles = terminal => {
   if (terminal === 'B') return greenStyle;
   if (terminal === 'D') return blueStyle;
 };
+
+export const btnActivities = {
+  depAct: { dep: 'active', arr: 'disabled' },
+  arrAct: { dep: 'disabled', arr: 'active' },
+};

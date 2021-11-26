@@ -1,16 +1,16 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
-import FlightsList from '../src/flightsList/components/FlightsList/Flights.List';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import FlightsList from '../src/flightsList/components/FlightsList/FlightsList';
 
 import store from './store';
 
 const App = () => (
   <BrowserRouter>
     <Provider store={store}>
-      <Route path="/">
-        <FlightsList />
-      </Route>
+      <Switch>
+        <Route path="/" component={FlightsList} />
+      </Switch>
     </Provider>
   </BrowserRouter>
 );

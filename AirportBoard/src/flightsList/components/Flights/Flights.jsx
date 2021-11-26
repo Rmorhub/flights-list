@@ -9,23 +9,15 @@ import { terminalStyles } from '../../flightsStyles';
 
 import './flights.scss';
 
-const Flights = ({ searchData, flightsList }) => {
-  const flights = searchData ?? flightsList;
-  const notFound = searchData !== null ? <NotFound /> : null;
-
-  const params = new URLSearchParams(window.location.search);
-  const searchText = params.get('search');
-
-  const flightDirection = window.location.pathname.includes('/departure')
+const Flights = ({ flightsList, searchText }) => {
+  const flightDirection = window.location.pathname.includes('/departures')
     ? 'Напрямок'
     : 'Прилітає з';
 
-  if (searchText && !searchData && flightsList) {
-    return null;
-  }
+  const displayTable = flightsList.length ? null : { display: 'none' };
+  const notFound = searchText !== null ? <NotFound /> : null;
 
-  const displayTable = flights.length ? null : { display: 'none' };
-
+  console.log(searchText);
   return (
     <table className="flight">
       <thead className="flight-nav" style={displayTable}>
@@ -38,8 +30,8 @@ const Flights = ({ searchData, flightsList }) => {
           <th className="flight-nav_item">Рейс</th>
         </tr>
       </thead>
-      {flights.length
-        ? flights.map(el => {
+      {flightsList.length
+        ? flightsList.map(el => {
             const { term, timeDepShedule, timeTakeofFact, status, timeToStand, timeLandFact } = el;
             const cityDep = el['airportToID.city'];
             const cityArr = el['airportFromID.city'];

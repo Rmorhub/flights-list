@@ -1,12 +1,11 @@
 import moment from 'moment';
 import * as flightGateway from './flightsGateway';
 
-export const DEPARTURES_FLIGHTS_LIST = 'AIRPORT/DEPARTURES_FLIGHTS_LIST';
-export const ARRIVALS_FLIGHTS_LIST = 'AIRPORT/ARRIVALS_FLIGHTS_LIST';
+export const GET_FLIGHTS_LIST = 'AIRPORT/SEARCH_FLIGHTS_LIST';
 
-export const departuresFlightsList = flightsList => {
+export const getFlightsListData = flightsList => {
   const action = {
-    type: DEPARTURES_FLIGHTS_LIST,
+    type: GET_FLIGHTS_LIST,
     payload: {
       flightsList,
     },
@@ -14,44 +13,44 @@ export const departuresFlightsList = flightsList => {
   return action;
 };
 
-export const arrivalsFlightsList = flightsList => {
-  const action = {
-    type: ARRIVALS_FLIGHTS_LIST,
-    payload: {
-      flightsList,
-    },
-  };
-  return action;
-};
-
-export const getDeparturesFlightsList = () => {
+export const searchList = (location, formData) => {
   const thunkAction = function (dispatch) {
-    flightGateway
-      .fetchAirportData()
-      .then(data =>
-        data.body.departure.filter(
-          el => moment(new Date(el.timeDepShedule)).format('DD-MM-YYYY') === flightGateway.today,
-        ),
-      )
-      .then(flightsListData => {
-        dispatch(departuresFlightsList(flightsListData));
-      });
-  };
-  return thunkAction;
-};
-
-export const getArrivalsFlightsList = () => {
-  const thunkAction = function (dispatch) {
-    flightGateway
-      .fetchAirportData()
-      .then(data =>
-        data.body.arrival.filter(
-          el => moment(new Date(el.timeToStand)).format('DD-MM-YYYY') === flightGateway.today,
-        ),
-      )
-      .then(flightsListData => {
-        dispatch(arrivalsFlightsList(flightsListData));
-      });
+    if (location.includes('/departures')) {
+      flightGateway
+        .fetchAirportData()
+        .then(data =>
+          data.body.departure.filter(el => {
+            const elData = moment(new Date(el.timeDepShedule)).format('DD-MM-YYYY');
+            const currentCity = el['airportToID.city'].toLowerCase();
+            const flightNum = el.codeShareData[0].codeShare.toLowerCase();
+            return (
+              (flightNum.includes(formData.toLowerCase()) && elData === flightGateway.today) ||
+              (currentCity.includes(formData.toLowerCase()) && elData === flightGateway.today)
+            );
+          }),
+        )
+        .then(flightsListData => {
+          dispatch(getFlightsListData(flightsListData));
+        });
+    }
+    if (location.includes('/arrivals')) {
+      flightGateway
+        .fetchAirportData()
+        .then(data =>
+          data.body.arrival.filter(el => {
+            const elData = moment(new Date(el.timeToStand)).format('DD-MM-YYYY');
+            const currentCity = el['airportFromID.city'].toLowerCase();
+            const flightNum = el.codeShareData[0].codeShare.toLowerCase();
+            return (
+              (flightNum.includes(formData.toLowerCase()) && elData === flightGateway.today) ||
+              (currentCity.includes(formData.toLowerCase()) && elData === flightGateway.today)
+            );
+          }),
+        )
+        .then(flightsListData => {
+          dispatch(getFlightsListData(flightsListData));
+        });
+    }
   };
   return thunkAction;
 };

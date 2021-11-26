@@ -1,41 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './searchForm.scss';
 
-import { fetchAirportData, departuresFilter, arrivalsFilter } from '../../flightsGateway';
+import * as flightsActions from '../../flightsList.actions';
 
-const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
-  const history = useHistory();
+const SearchForm = ({ searchList, setInput }) => {
   const [inputText, setInputText] = useState('');
+
+  const history = useHistory();
+  const { pathname, search } = useLocation();
 
   const hanndleChange = event => {
     setInputText(event.target.value);
   };
 
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(search);
   const searchText = params.get('search');
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    setInput(inputText);
+    searchList(pathname, inputText);
+    const defaultLink = pathname !== '/' ? pathname : '/departures';
+    const link = inputText ? `${defaultLink}?search=${inputText}` : pathname;
+    history.push(link);
+  };
 
   useEffect(() => {
     if (searchText) {
       setInputText(searchText);
     }
-  }, []);
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    const pathName = window.location.pathname;
-
-    const defaultLink = pathName !== '/' ? pathName : '/departures';
-    const link = inputText ? `${defaultLink}?search=${inputText}` : pathName;
-
-    fetchAirportData().then(data => {
-      setSearchDataDeparture(departuresFilter(data, inputText));
-      setSearchDataArrival(arrivalsFilter(data, inputText));
-    });
-
-    history.push(link);
-  };
+  }, [pathname]);
 
   return (
     <div className="main_search">
@@ -60,4 +57,8 @@ const SearchForm = ({ setSearchDataDeparture, setSearchDataArrival }) => {
   );
 };
 
-export default SearchForm;
+const mapDispatch = {
+  searchList: flightsActions.searchList,
+};
+
+export default connect(null, mapDispatch)(SearchForm);
