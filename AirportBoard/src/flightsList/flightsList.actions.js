@@ -1,7 +1,7 @@
 import moment from 'moment';
 import * as flightGateway from './flightsGateway';
 
-export const GET_FLIGHTS_LIST = 'AIRPORT/SEARCH_FLIGHTS_LIST';
+export const GET_FLIGHTS_LIST = 'AIRPORT/GET_FLIGHTS_LIST';
 
 export const getFlightsListData = flightsList => {
   const action = {

@@ -17,7 +17,6 @@ const Flights = ({ flightsList, searchText }) => {
   const displayTable = flightsList.length ? null : { display: 'none' };
   const notFound = searchText !== null ? <NotFound /> : null;
 
-  console.log(searchText);
   return (
     <table className="flight">
       <thead className="flight-nav" style={displayTable}>
