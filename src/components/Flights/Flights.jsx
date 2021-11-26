@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 import NotFound from '../NotFound/NotFound';
 
-import { checkStatus, timeFormatter } from '../../flightsGateway';
-import { flightsListSelector } from '../../flightsList.selectors';
-import { terminalStyles } from '../../flightsStyles';
+import { checkStatus, timeFormatter } from '../../js/flightsGateway';
+import { flightsListSelector } from '../../js/flightsList.selectors';
+import { terminalStyles } from '../../js/flightsStyles';
 
 import './flights.scss';
 

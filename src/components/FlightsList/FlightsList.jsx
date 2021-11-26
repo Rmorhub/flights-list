@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Route, Link, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { showFlights, onLoad } from '../../flightsGateway';
+import { showFlights, onLoad } from '../../js/flightsGateway';
 
 import SearchForm from '../SearchForm/SearchForm';
 import Flights from '../Flights/Flights';
 
-import * as flightsActions from '../../flightsList.actions';
-import { btnActivities } from '../../flightsStyles';
+import * as flightsActions from '../../js/flightsList.actions';
+import { btnActivities } from '../../js/flightsStyles';
 
 import './flightsList.scss';
 

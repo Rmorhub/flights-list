@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import './searchForm.scss';
 
-import * as flightsActions from '../../flightsList.actions';
+import * as flightsActions from '../../js/flightsList.actions';
 
 const SearchForm = ({ searchList, setInput }) => {
   const [inputText, setInputText] = useState('');
