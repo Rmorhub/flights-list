@@ -23,4 +23,4 @@
 
 ### Author:
 
-- Рожук Станислав
+- Stanislav Rozhuk
